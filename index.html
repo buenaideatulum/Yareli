@@ -16,15 +16,11 @@
       min-height: 100vh;
       padding: 20px;
     }
-
     #gallery { width:100%; max-width:1200px; }
-
     #gallery-header { text-align:center; margin-bottom:30px; }
     #gallery-header img { width:300px; margin-bottom:15px; /* AQUÍ VA EL LOGO */ }
     #gallery-header h2 { font-size:28px; color:#ffcc00; }
-
     .videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-
     .video-card {
       background: rgba(255,255,255,0.05);
       padding: 10px;
@@ -32,9 +28,7 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
       text-align: center;
     }
-
     video { width:100%; border-radius:12px; }
-
     .download-btn {
       display:inline-block;
       margin-top:10px;
@@ -46,12 +40,10 @@
       font-weight:bold;
       transition:0.3s;
     }
-
     .download-btn:hover { background:#ffaa00; }
   </style>
 </head>
 <body>
-
   <!-- GALERÍA DE VIDEOS -->
   <div id="gallery">
     <div id="gallery-header">
@@ -59,53 +51,49 @@
       <img src="logo.png" alt="Logo Buena Idea">
       <h2>Porque las mejores historias merecen repetirse una y otra vez✨</h2>
     </div>
-
     <div class="videos" id="videos-container">
       <!-- Aquí se generarán los videos automáticamente -->
     </div>
   </div>
-
   <script>
     // Cargar videos automáticamente al abrir la página
     window.onload = function() {
       loadVideos();
     };
-
     function loadVideos() {
       const videosContainer = document.getElementById("videos-container");
       const totalVideos = 51; // Cambia esto si tienes más videos
       for(let i=1; i<=totalVideos; i++) {
         const videoCard = document.createElement("div");
         videoCard.className = "video-card";
-
         const videoElement = document.createElement("video");
         videoElement.controls = true;
-
+        videoElement.preload = "auto"; // Carga el video completo incluyendo el primer frame
+        videoElement.muted = true; // Necesario para que algunos navegadores muestren el preview
         // Si tienes un poster, descomenta y pon tu imagen
-        // videoElement.poster = `poster${i}.jpg`; 
-
+        // videoElement.poster = `${i}poster.jpg`; 
         const source = document.createElement("source");
         source.src = `${i}v.mov`;
-        source.type = "video/quicktime";
-
+        source.type = "video/mp4"; // Cambiado a mp4 para mejor compatibilidad
         videoElement.appendChild(source);
-
+        // Agregar formato alternativo para mejor compatibilidad
+        const source2 = document.createElement("source");
+        source2.src = `${i}v.mov`;
+        source2.type = "video/quicktime";
+        videoElement.appendChild(source2);
         const fallback = document.createElement("p");
         fallback.innerHTML = `Tu navegador no reproduce este video. <a href="${i}v.mov" download>Descargar Video ${i}</a>`;
         videoElement.appendChild(fallback);
-
         const downloadBtn = document.createElement("a");
         downloadBtn.href = `${i}v.mov`;
         downloadBtn.download = `${i}v.mov`;
         downloadBtn.className = "download-btn";
         downloadBtn.textContent = `Descargar Video ${i}`;
-
         videoCard.appendChild(videoElement);
         videoCard.appendChild(downloadBtn);
         videosContainer.appendChild(videoCard);
       }
     }
   </script>
-
 </body>
 </html>
