@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería de Videos 360 - Buena Idea</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    #gallery { width:100%; max-width:1200px; }
+
+    #gallery-header { text-align:center; margin-bottom:30px; }
+    #gallery-header img { width:300px; margin-bottom:15px; /* AQUÍ VA EL LOGO */ }
+    #gallery-header h2 { font-size:28px; color:#ffcc00; }
+
+    .videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+
+    .video-card {
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    video { width:100%; border-radius:12px; }
+
+    .download-btn {
+      display:inline-block;
+      margin-top:10px;
+      padding:10px 15px;
+      background:#ffcc00;
+      color:#111;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .download-btn:hover { background:#ffaa00; }
+  </style>
+</head>
+<body>
+
+  <!-- GALERÍA DE VIDEOS -->
+  <div id="gallery">
+    <div id="gallery-header">
+      <!-- AQUÍ VA EL LOGO -->
+      <img src="logo.png" alt="Logo Buena Idea">
+      <h2>Porque las mejores historias merecen repetirse una y otra vez✨</h2>
+    </div>
+
+    <div class="videos" id="videos-container">
+      <!-- Aquí se generarán los videos automáticamente -->
+    </div>
+  </div>
+
+  <script>
+    // Cargar videos automáticamente al abrir la página
+    window.onload = function() {
+      loadVideos();
+    };
+
+    function loadVideos() {
+      const videosContainer = document.getElementById("videos-container");
+      const totalVideos = 21; // Cambia esto si tienes más videos
+      for(let i=1; i<=totalVideos; i++) {
+        const videoCard = document.createElement("div");
+        videoCard.className = "video-card";
+
+        const videoElement = document.createElement("video");
+        videoElement.controls = true;
+
+        // Si tienes un poster, descomenta y pon tu imagen
+        // videoElement.poster = `poster${i}.jpg`; 
+
+        const source = document.createElement("source");
+        source.src = `v${i}.mov`;
+        source.type = "video/quicktime";
+
+        videoElement.appendChild(source);
+
+        const fallback = document.createElement("p");
+        fallback.innerHTML = `Tu navegador no reproduce este video. <a href="v${i}.mov" download>Descargar Video ${i}</a>`;
+        videoElement.appendChild(fallback);
+
+        const downloadBtn = document.createElement("a");
+        downloadBtn.href = `v${i}.mov`;
+        downloadBtn.download = `v${i}.mov`;
+        downloadBtn.className = "download-btn";
+        downloadBtn.textContent = `Descargar Video ${i}`;
+
+        videoCard.appendChild(videoElement);
+        videoCard.appendChild(downloadBtn);
+        videosContainer.appendChild(videoCard);
+      }
+    }
+  </script>
+
+</body>
+</html>
