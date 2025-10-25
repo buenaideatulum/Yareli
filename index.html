@@ -73,7 +73,7 @@
 
     function loadVideos() {
       const videosContainer = document.getElementById("videos-container");
-      const totalVideos = 21; // Cambia esto si tienes más videos
+      const totalVideos = 51; // Cambia esto si tienes más videos
       for(let i=1; i<=totalVideos; i++) {
         const videoCard = document.createElement("div");
         videoCard.className = "video-card";
@@ -85,7 +85,7 @@
         // videoElement.poster = `poster${i}.jpg`; 
 
         const source = document.createElement("source");
-        source.src = `v${i}.mov`;
+        source.src = `${i}v.mov`;
         source.type = "video/quicktime";
 
         videoElement.appendChild(source);
