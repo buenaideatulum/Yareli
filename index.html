@@ -91,7 +91,7 @@
         videoElement.appendChild(source);
 
         const fallback = document.createElement("p");
-        fallback.innerHTML = `Tu navegador no reproduce este video. <a href="v${i}.mov" download>Descargar Video ${i}</a>`;
+        fallback.innerHTML = `Tu navegador no reproduce este video. <a href="${i}v.mov" download>Descargar Video ${i}</a>`;
         videoElement.appendChild(fallback);
 
         const downloadBtn = document.createElement("a");
